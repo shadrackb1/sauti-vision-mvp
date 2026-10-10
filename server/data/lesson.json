@@ -1,0 +1,24 @@
+{
+  "id": "form2-biology-photosynthesis",
+  "title": "Form 2 Biology — Photosynthesis",
+  "subject": "Biology",
+  "form": "Form 2",
+  "topic": "Photosynthesis",
+  "utterances": [
+    { "speaker": "teacher", "text": "Good morning class. Today we are learning about photosynthesis." },
+    { "speaker": "teacher", "text": "Photosynthesis is how green plants make their own food." },
+    { "speaker": "teacher", "text": "They use sunlight, water, and carbon dioxide." },
+    { "speaker": "teacher", "text": "Chlorophyll in the leaf traps light energy." },
+    { "speaker": "teacher", "text": "The plant produces glucose and releases oxygen." },
+    { "speaker": "teacher", "text": "Look at the maize leaf on the board. This is where most photosynthesis happens." },
+    { "speaker": "teacher", "text": "Chlorophyll is the green pigment inside the leaf cells." },
+    { "speaker": "teacher", "text": "Energy from sunlight is stored in glucose as chemical energy." },
+    { "speaker": "teacher", "text": "Will this be examined? Yes. Photosynthesis is a core Form 2 topic." },
+    { "speaker": "teacher", "text": "Write the word equation in your books, then we will revise together." }
+  ],
+  "suggestedQuestions": [
+    "What is the role of chlorophyll?",
+    "Can you repeat the last definition?",
+    "Will this be examined?"
+  ]
+}

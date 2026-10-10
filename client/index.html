@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sauti Vision — Classroom Access</title>
+  <meta name="description" content="AI-powered inclusive learning and accessibility assistant for the Kenyan school environment." />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="strip">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name">Sauti Vision</p>
+          <p class="brand-tag">Classroom access loop</p>
+        </div>
+      </div>
+
+      <div class="lesson-meta">
+        <p class="lesson-title" id="lessonTitle">Form 2 Biology — Photosynthesis</p>
+        <p class="lesson-sub" id="lessonSub">Quiet Classroom Mode · private captions on this device</p>
+      </div>
+
+      <div class="strip-actions">
+        <label class="quiet-toggle">
+          <input type="checkbox" id="quietMode" checked />
+          <span>Quiet mode</span>
+        </label>
+        <div class="role-switch" role="tablist" aria-label="Role">
+          <button type="button" class="role-btn is-active" data-role="learner" role="tab" aria-selected="true">Learner</button>
+          <button type="button" class="role-btn" data-role="teacher" role="tab" aria-selected="false">Teacher</button>
+        </div>
+        <button type="button" class="btn btn-primary" id="btnDemoLesson">Play demo lesson</button>
+        <button type="button" class="btn" id="btnMic">Start captions</button>
+        <button type="button" class="btn" id="btnEndLesson">End lesson</button>
+      </div>
+    </header>
+
+    <nav class="loop" aria-label="Access Loop">
+      <div class="loop-step" data-stage="listen"><span>01</span> Listen</div>
+      <div class="loop-step" data-stage="understand"><span>02</span> Understand</div>
+      <div class="loop-step" data-stage="ask"><span>03</span> Ask</div>
+      <div class="loop-step" data-stage="learn"><span>04</span> Learn</div>
+      <div class="loop-step" data-stage="revise"><span>05</span> Revise</div>
+    </nav>
+
+    <main class="workspace">
+      <section class="panel panel-captions" aria-labelledby="captionsHeading">
+        <div class="panel-head">
+          <h2 id="captionsHeading">Live captions</h2>
+          <p class="status" id="captionStatus">Waiting for speech or demo lesson</p>
+        </div>
+        <div class="caption-stream" id="captionStream" aria-live="polite">
+          <p class="caption-empty">Captions appear here. Curriculum terms are tappable chips — open one without leaving the lesson.</p>
+        </div>
+        <div class="banner" id="captionBanner" hidden>
+          Speech recognition is unavailable in this browser.
+          <button type="button" class="linkish" id="bannerDemo">Play demo lesson</button>
+        </div>
+      </section>
+
+      <aside class="panel panel-rail" aria-label="Questions and terms">
+        <section class="rail-block">
+          <div class="panel-head">
+            <h2>Questions queue</h2>
+            <p class="status" id="queueStatus">0 waiting</p>
+          </div>
+          <p class="empty-note" id="queueEmpty">No questions yet. Sign or type one — it stays quiet.</p>
+          <ul class="queue-list" id="queueList"></ul>
+
+          <form class="ask-form" id="askForm">
+            <label class="sr-only" for="askText">Your question</label>
+            <textarea id="askText" rows="2" placeholder="Type a question, or sign one with the library below" required></textarea>
+            <div class="ask-modes">
+              <label><input type="radio" name="askMode" value="now" /> Ask now</label>
+              <label><input type="radio" name="askMode" value="later" checked /> Save for later</label>
+              <label><input type="radio" name="askMode" value="anonymous" /> Ask anonymously</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Queue question</button>
+          </form>
+        </section>
+
+        <section class="rail-block" id="teacherBlock" hidden>
+          <div class="panel-head">
+            <h2>Teacher dashboard</h2>
+            <p class="status" id="teacherStatus">Pending items</p>
+          </div>
+          <ul class="teacher-list" id="teacherList"></ul>
+        </section>
+
+        <section class="rail-block" id="termDrawer" aria-live="polite">
+          <div class="panel-head">
+            <h2>Term drawer</h2>
+            <p class="status">Understand · Learn</p>
+          </div>
+          <p class="empty-note" id="termEmpty">Tap a highlighted term in the captions or send a curriculum sign.</p>
+          <article class="term-card" id="termCard" hidden></article>
+        </section>
+      </aside>
+
+      <section class="panel panel-vision" aria-labelledby="visionHeading">
+        <div class="panel-head">
+          <h2 id="visionHeading">Sign recognition</h2>
+          <div class="vision-actions">
+            <button type="button" class="btn" id="btnCamera">Start camera</button>
+            <span class="status" id="visionStatus">Demo library ready</span>
+          </div>
+        </div>
+
+        <div class="vision-body">
+          <div class="camera-wrap">
+            <video id="video" playsinline muted></video>
+            <canvas id="overlay" width="480" height="320" aria-hidden="true"></canvas>
+            <p class="camera-hint" id="cameraHint">Camera off — use the sign library for reliable demos.</p>
+          </div>
+          <div class="recognized" id="recognized" aria-live="polite">
+            <p class="recognized-label">Recognized</p>
+            <p class="recognized-empty">Waiting for a sign…</p>
+          </div>
+        </div>
+
+        <div class="vocab">
+          <div class="vocab-head">
+            <h3>Demo sign library</h3>
+            <div class="vocab-filters">
+              <button type="button" class="chip-filter is-active" data-filter="all">All</button>
+              <button type="button" class="chip-filter" data-filter="conversational">Conversational</button>
+              <button type="button" class="chip-filter" data-filter="education">Education</button>
+            </div>
+          </div>
+          <div class="vocab-grid" id="vocabGrid" role="list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="memory-bar">
+      <div>
+        <p class="memory-title">Lecture Memory</p>
+        <p class="memory-sub" id="memoryStatus">End the lesson to save a Lecture Memory.</p>
+      </div>
+      <div class="memory-actions">
+        <button type="button" class="btn" id="btnMemory">Save Lecture Memory</button>
+        <button type="button" class="btn" id="btnShowMemory">Open last memory</button>
+      </div>
+    </footer>
+
+    <dialog class="memory-dialog" id="memoryDialog">
+      <form method="dialog" class="dialog-head">
+        <h2>Lecture Memory</h2>
+        <button type="submit" class="btn">Close</button>
+      </form>
+      <div class="memory-body" id="memoryBody"></div>
+    </dialog>
+
+    <div class="toast" id="toast" hidden></div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

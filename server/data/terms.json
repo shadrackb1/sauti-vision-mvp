@@ -1,0 +1,134 @@
+[
+  {
+    "id": "photosynthesis",
+    "subject": "Biology",
+    "form": "Form 2",
+    "title": "Photosynthesis",
+    "definition": "The process by which green plants make food (glucose) using carbon dioxide and water in the presence of sunlight and chlorophyll.",
+    "kslNote": "Curriculum KSL representation available — validated with KSL experts in pilot.",
+    "simplified": "Plants use sunlight, water, and air to make their own food and release oxygen.",
+    "related": ["chlorophyll", "leaf", "sunlight", "energy", "glucose", "oxygen", "plant"],
+    "examples": [
+      "A maize leaf turns sunlight into sugar the plant can use.",
+      "Without light, a plant cannot photosynthesise and will starve over time."
+    ],
+    "revisionQuestions": [
+      "What is the role of chlorophyll?",
+      "Write the word equation for photosynthesis.",
+      "Why do plants need both light and water?"
+    ]
+  },
+  {
+    "id": "chlorophyll",
+    "subject": "Biology",
+    "form": "Form 2",
+    "title": "Chlorophyll",
+    "definition": "The green pigment in plant cells that traps light energy for photosynthesis.",
+    "kslNote": "Curriculum KSL representation available — validated with KSL experts in pilot.",
+    "simplified": "The green stuff in leaves that catches sunlight so the plant can make food.",
+    "related": ["leaf", "photosynthesis", "sunlight"],
+    "examples": [
+      "Leaves look green because they are full of chlorophyll."
+    ],
+    "revisionQuestions": [
+      "Where in the plant cell is chlorophyll found?",
+      "What would happen to photosynthesis without chlorophyll?"
+    ]
+  },
+  {
+    "id": "leaf",
+    "subject": "Biology",
+    "form": "Form 2",
+    "title": "Leaf",
+    "definition": "The main photosynthetic organ of a plant; thin and broad to trap light and exchange gases.",
+    "kslNote": "Curriculum KSL representation available — validated with KSL experts in pilot.",
+    "simplified": "The flat green part of a plant where most food-making happens.",
+    "related": ["chlorophyll", "photosynthesis", "plant"],
+    "examples": [
+      "A broad leaf has a large surface to capture light."
+    ],
+    "revisionQuestions": [
+      "How does the shape of a leaf help photosynthesis?"
+    ]
+  },
+  {
+    "id": "sunlight",
+    "subject": "Biology",
+    "form": "Form 2",
+    "title": "Sunlight",
+    "definition": "Light energy from the sun that drives photosynthesis in green plants.",
+    "kslNote": "Curriculum KSL representation available — validated with KSL experts in pilot.",
+    "simplified": "The light energy plants need to make food.",
+    "related": ["energy", "photosynthesis", "chlorophyll"],
+    "examples": [
+      "A plant kept in a dark cupboard cannot photosynthesise."
+    ],
+    "revisionQuestions": [
+      "Why is sunlight necessary for photosynthesis?"
+    ]
+  },
+  {
+    "id": "energy",
+    "subject": "Biology",
+    "form": "Form 2",
+    "title": "Energy",
+    "definition": "The capacity to do work. In photosynthesis, light energy is stored as chemical energy in glucose.",
+    "kslNote": "Curriculum KSL representation available — validated with KSL experts in pilot.",
+    "simplified": "What plants store in their food after using sunlight.",
+    "related": ["photosynthesis", "glucose", "sunlight"],
+    "examples": [
+      "Chemical energy in glucose later powers plant growth."
+    ],
+    "revisionQuestions": [
+      "What energy change happens during photosynthesis?"
+    ]
+  },
+  {
+    "id": "plant",
+    "subject": "Biology",
+    "form": "Form 2",
+    "title": "Plant",
+    "definition": "A living organism that is mostly autotrophic — it can make its own food by photosynthesis.",
+    "kslNote": "Curriculum KSL representation available — validated with KSL experts in pilot.",
+    "simplified": "A living thing that grows in soil and makes its own food.",
+    "related": ["leaf", "photosynthesis", "glucose"],
+    "examples": [
+      "Bean plants, trees, and grass are all photosynthetic plants."
+    ],
+    "revisionQuestions": [
+      "Why are plants called producers in a food chain?"
+    ]
+  },
+  {
+    "id": "glucose",
+    "subject": "Biology",
+    "form": "Form 2",
+    "title": "Glucose",
+    "definition": "A simple sugar produced during photosynthesis; used by the plant for energy and growth.",
+    "kslNote": "Curriculum KSL representation available — validated with KSL experts in pilot.",
+    "simplified": "The sugar food the plant makes for itself.",
+    "related": ["photosynthesis", "energy"],
+    "examples": [
+      "Glucose can be stored as starch in the leaf."
+    ],
+    "revisionQuestions": [
+      "How does the plant use the glucose it makes?"
+    ]
+  },
+  {
+    "id": "oxygen",
+    "subject": "Biology",
+    "form": "Form 2",
+    "title": "Oxygen",
+    "definition": "A gas released as a by-product of photosynthesis; required for respiration in most living things.",
+    "kslNote": "Curriculum KSL representation available — validated with KSL experts in pilot.",
+    "simplified": "The gas plants give out when they make food.",
+    "related": ["photosynthesis", "plant"],
+    "examples": [
+      "Bubbles on a water plant in light are oxygen from photosynthesis."
+    ],
+    "revisionQuestions": [
+      "Why is oxygen released during photosynthesis?"
+    ]
+  }
+]
