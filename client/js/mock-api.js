@@ -184,6 +184,11 @@ const LESSON = {
     { speaker: "teacher", text: "Energy from sunlight is stored in glucose as chemical energy." },
     { speaker: "teacher", text: "Will this be examined? Yes. Photosynthesis is a core Form 2 topic." },
     { speaker: "teacher", text: "Write the word equation in your books, then we will revise together." }
+  ],
+  suggestedQuestions: [
+    "What is the role of chlorophyll?",
+    "Can you repeat the last definition?",
+    "Will this be examined?"
   ]
 };
 
@@ -292,21 +297,26 @@ export function mockFetch(input, init) {
   return json(404, { error: "Not found" });
 }
 
-const realFetch = window.fetch.bind(window);
-window.fetch = async (input, init) => {
-  const url = typeof input === "string" ? input : input.url;
-  if (active && String(url).includes("/api/")) {
-    return mockFetch(input, init);
-  }
-  try {
-    return await realFetch(input, init);
-  } catch (err) {
-    if (String(url).includes("/api/")) {
-      active = true;
+// In-browser this patches window.fetch so the demo works without the Node
+// server. Under Node (data-parity tests import this module) there is no
+// window, so the patch is skipped and only the exported data is used.
+if (typeof window !== "undefined") {
+  const realFetch = window.fetch.bind(window);
+  window.fetch = async (input, init) => {
+    const url = typeof input === "string" ? input : input.url;
+    if (active && String(url).includes("/api/")) {
       return mockFetch(input, init);
     }
-    throw err;
-  }
-};
+    try {
+      return await realFetch(input, init);
+    } catch (err) {
+      if (String(url).includes("/api/")) {
+        active = true;
+        return mockFetch(input, init);
+      }
+      throw err;
+    }
+  };
+}
 
 export { SIGNS, TERMS, LESSON };
