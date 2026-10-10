@@ -1,4 +1,5 @@
 import { state, markLoop, linkTerms, formatTime, toast } from "./state.js";
+import { nextRestartDelay } from "./backoff.mjs";
 
 export function initCaptions({ onTermClick }) {
   const stream = document.getElementById("captionStream");
@@ -12,6 +13,8 @@ export function initCaptions({ onTermClick }) {
   let demoTimer = null;
   let demoIndex = 0;
   let micOn = false;
+  let restartTimer = null;
+  let errorStreak = 0;
 
   stream.addEventListener("click", (e) => {
     const btn = e.target.closest(".term-chip");
@@ -86,6 +89,7 @@ export function initCaptions({ onTermClick }) {
     recognition.lang = "en-KE";
 
     recognition.onresult = (event) => {
+      errorStreak = 0; // speech came through — the service is healthy
       let finalText = "";
       let interim = "";
       for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -98,7 +102,13 @@ export function initCaptions({ onTermClick }) {
     };
 
     recognition.onerror = (e) => {
-      setCaptionStatus(`Captions error: ${e.error}`);
+      errorStreak += 1;
+      const delay = nextRestartDelay(errorStreak);
+      setCaptionStatus(
+        delay > 0
+          ? `Captions error: ${e.error} — retrying in ${Math.round(delay / 1000)}s`
+          : `Captions error: ${e.error}`
+      );
       if (e.error === "not-allowed" || e.error === "service-not-allowed") {
         banner.hidden = false;
       }
@@ -106,11 +116,15 @@ export function initCaptions({ onTermClick }) {
 
     recognition.onend = () => {
       if (micOn) {
-        try {
-          recognition.start();
-        } catch {
-          /* already started */
-        }
+        const delay = nextRestartDelay(errorStreak);
+        restartTimer = setTimeout(() => {
+          restartTimer = null;
+          try {
+            recognition.start();
+          } catch {
+            /* already started */
+          }
+        }, delay);
       } else {
         setCaptionStatus("Captions stopped");
         btnMic.textContent = "Start captions";
@@ -118,10 +132,18 @@ export function initCaptions({ onTermClick }) {
     };
   }
 
+  function clearRestartTimer() {
+    if (restartTimer) {
+      clearTimeout(restartTimer);
+      restartTimer = null;
+    }
+  }
+
   function startMic() {
     if (!recognition) return;
     stopDemo();
     micOn = true;
+    errorStreak = 0;
     btnMic.textContent = "Stop captions";
     setCaptionStatus("Listening to teacher speech…");
     try {
@@ -133,6 +155,7 @@ export function initCaptions({ onTermClick }) {
 
   function stopMic() {
     micOn = false;
+    clearRestartTimer();
     if (recognition) {
       try {
         recognition.stop();
