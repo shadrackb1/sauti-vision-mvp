@@ -86,17 +86,22 @@ export function formatTime(iso) {
 
 /** Split caption text and wrap known curriculum terms as chips. */
 export function linkTerms(text) {
-  let html = escapeHtml(text);
+  const escaped = escapeHtml(text);
+  // Longest titles first so "Photosynthesis" wins over a shorter overlapping
+  // title, and one combined regex pass avoids O(n_terms) rewrites per call.
   const titles = [...state.terms.values()]
     .map((t) => t.title)
     .sort((a, b) => b.length - a.length);
-  for (const title of titles) {
-    const term = [...state.terms.values()].find((t) => t.title === title);
-    const escapedTitle = title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const re = new RegExp(`\\b(${escapedTitle})\\b`, "gi");
-    html = html.replace(re, (m) => {
-      return `<button type="button" class="term-chip" data-term="${escapeHtml(term.id)}">${m}</button>`;
-    });
-  }
-  return html;
+  if (!titles.length) return escaped;
+  const pattern = titles
+    .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  const re = new RegExp(`\\b(${pattern})\\b`, "gi");
+  return escaped.replace(re, (match) => {
+    const term = [...state.terms.values()].find((t) =>
+      t.title.toLowerCase() === match.toLowerCase()
+    );
+    if (!term) return match;
+    return `<button type="button" class="term-chip" data-term="${escapeHtml(term.id)}">${match}</button>`;
+  });
 }
